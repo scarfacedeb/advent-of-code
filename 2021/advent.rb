@@ -1,3 +1,5 @@
+require 'benchmark'
+
 def read_input
   File.read($input || ARGV.first).split("\n")
 end
@@ -85,4 +87,4 @@ def day3
   puts "Answer 3.2 #{oxygen * co2}"
 end
 
-day3
+puts Benchmark.measure { day3 }
