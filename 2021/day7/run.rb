@@ -5,22 +5,16 @@ def read_input
   File.read(ARGV.last || file)
 end
 
-puts Benchmark.measure {
-  crabs = read_input.split(',').map(&:to_i).sort
+# p Benchmark.measure {
+crabs = read_input.split(',').map(&:to_i).sort!
 
-  range = crabs.min.upto(crabs.max)
+range = Range.new(*crabs.minmax)
 
-  ans =
-    range.map { |target|
-      crabs.map { (_1 - target).abs }.sum
-    }.min
+variants = range.map { |target| crabs.map { (_1 - target).abs } }
 
-  ans2 =
-    range.map { |target|
-      crabs.map { (_1 - target).abs }.map { |d| (d*d + d) / 2 }.sum
-    }.min
+ans = variants.map(&:sum).min
+ans2 = variants.map { |var| var.map { |d| (d*(d + 1)) / 2 }.sum }.min
 
-
-  puts "Answer 7.1: #{ans}"
-  puts "Answer 7.2: #{ans2}"
-}
+puts "Answer 7.1: #{ans}"
+puts "Answer 7.2: #{ans2}"
+# }
