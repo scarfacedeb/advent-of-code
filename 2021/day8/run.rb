@@ -20,6 +20,8 @@ def draw(known)
   puts pattern
 end
 
+# p Benchmark.measure {
+
 lines = read_input.map { |l| l.split(' | ').map { _1.split(' ') } }
 
 ans =
@@ -72,3 +74,4 @@ ans2 =
   }.sum
 
 puts "Answer 8.2: #{ans2}"
+# }.total * 1000
