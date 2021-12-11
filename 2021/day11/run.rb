@@ -41,25 +41,26 @@ end
 
 st = 1
 total = 0
-octos_count = octos.flatten.count
+rows, cols = octos.count, octos.first.count
+octos_count = rows * cols
 
 loop do
-  octos.each_with_index { |row, i|
-    row.each_with_index { |_col, j|
+  rows.times do |i|
+    cols.times do |j|
       step(octos, [i, j])
-    }
-  }
+    end
+  end
 
   # draw "STEP #{st + 1}", octos
   flashing = octos.flatten.count { |e| e > 9 }
-  total += flashing
+  total += flashing if st <= 100
   break st if flashing == octos_count
 
-  octos.each_with_index { |row, i|
-    row.each_with_index { |_col, j|
+  rows.times do |i|
+    cols.times do |j|
       flash(octos, i, j)
-    }
-  }
+    end
+  end
 
   st += 1
 end
