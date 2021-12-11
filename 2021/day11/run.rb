@@ -31,14 +31,6 @@ def step(octos, pos, from = nil)
   ADJACENT.each { step(octos, pos.zip(_1).map(&:sum)) } if energy == 9
 end
 
-def flash(octos, i, j)
-  energy = octos.dig(i, j)
-  return if energy.nil? || energy < 10
-
-  octos[i][j] = 0
-  ADJACENT.each { flash(octos, *_1) }
-end
-
 st = 1
 total = 0
 rows, cols = octos.count, octos.first.count
@@ -52,15 +44,19 @@ loop do
   end
 
   # draw "STEP #{st + 1}", octos
-  flashing = octos.flatten.count { |e| e > 9 }
-  total += flashing if st <= 100
-  break st if flashing == octos_count
+  flashing = 0
 
   rows.times do |i|
     cols.times do |j|
-      flash(octos, i, j)
+      next if octos[i][j] < 10
+
+      octos[i][j] = 0
+      flashing += 1
     end
   end
+
+  total += flashing if st <= 100
+  break st if flashing == octos_count
 
   st += 1
 end
