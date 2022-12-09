@@ -59,7 +59,7 @@ def calc_distance(head, tail)
 end
 
 def move_straight(tail, distance)
-  apply_delta(tail, distance.map { _1 > 0 ? _1 - 1 : (_1 < 0 ? _1 + 1 : _1) })
+  apply_delta(tail, distance.map { decr_abs(_1) })
 end
 
 def move_diagonal(tail, distance)
