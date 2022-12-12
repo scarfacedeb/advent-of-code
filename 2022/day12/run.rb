@@ -9,19 +9,18 @@ def read_input
   File.read(ARGV.last || file).split("\n").map(&:chars)
 end
 
-def move(mx, pos, value, visited = {}, path = [], cost = 0)
+def move(mx, pos, value, visited, cost = -1)
   visited[pos] = cost
   cost += 1
-  path += [pos]
 
-  return path if value == PEAK
+  return cost if value == PEAK
 
   DELTAS
     .map { pos.zip(_1).map(&:sum) }
     .reject { _1.any?(&:negative?) || (visited[_1] && visited[_1] <= cost) }
     .map { [_1, mx.dig(*_1)] }
     .select { |_, v| v && (v - value) <= 1 }
-    .map { move(mx, _1, _2, visited, path, cost) }
+    .map { move(mx, _1, _2, visited, cost) }
     .compact
     .min
 end
@@ -29,15 +28,22 @@ end
 chars = read_input
 mx = chars.map { |l| l.map { CHARS[_1] } }
 
-pos = mx.map.with_index { |row, y| [y, row.find_index { |val| val == -1 }] }.find { _2 }
+start = mx.map.with_index { |row, y| [y, row.find_index { |val| val == -1 }] }.find { _2 }
+starts = mx.map.with_index { |row, y| row.map.with_index.select { |val, _| val == 0 }.map { [y, _2] } }.flatten(1)
+starts.unshift(start)
+visited = {}
 
-path = move(mx, pos, mx.dig(*pos))
-ans = path.size - 1
+sizes = starts.map { |pos|
+  move(mx, pos, mx.dig(*pos), visited)
+}.compact
+
+ans = sizes.first
 
 puts "Answer 12.1: #{ans}"
-puts path.map { chars.dig(*_1) }.join
+# puts path.map { chars.dig(*_1) }.join
 
-last_a_pos = path.map.with_index { [chars.dig(*_1), _2] }.select { |v, _| v == "a" }.last.last
-ans2 = ans - last_a_pos
+# last_a_pos = path.map.with_index { [chars.dig(*_1), _2] }.select { |v, _| v == "a" }.last.last
+# ans2 = ans - last_a_pos
 
+ans2 = sizes.min
 puts "Answer 12.2: #{ans2}"
