@@ -1,4 +1,4 @@
-lines = File.readlines("example.txt")
+lines = File.readlines("input.txt")
 
 sum = lines.map { |line|
   nums = line.scan(/\d/)
@@ -9,7 +9,7 @@ puts "Day 1.1: #{sum}"
 
 NUMS = %w{one two three four five six seven eight nine}.map.with_index(1).to_h
 
-lines = File.readlines("data.txt")
+lines = File.readlines("input.txt")
 # lines = ["rzvlkjvone142oneightpv"]
 
 sum = lines.map { |line|
