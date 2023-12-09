@@ -5,7 +5,8 @@ def read_input
 end
 
 def pretty_print(seq)
-  puts seq.map { _1.join(" ").center(seq.first.size * 2 + 1) }
+  width = seq.first.map(&:to_s).join(" ").length + 2
+  puts seq.map { _1.join(" ").center(width) }
   puts
 end
 
@@ -22,6 +23,7 @@ def calc_deltas(seq)
     extras << deltas
   end
 
+  pretty_print extras
   extras.reverse
 end
 
