@@ -29,6 +29,9 @@ Lint/DeprecatedOpenSSLConstant:
 Lint/MixedRegexpCaptureTypes:
   Enabled: false
 
+Lint/Debugger:
+  Enabled: false
+
 Lint/RaiseException:
   Enabled: true
 
@@ -37,17 +40,19 @@ Lint/StructNewOverride:
 
 
 Metrics/MethodLength:
-  Max: 12
+  Enabled: false
 
 Metrics/CyclomaticComplexity:
-  Max: 10
+  Enabled: false
 
 Metrics/PerceivedComplexity:
-  Max: 8
+  Enabled: false
 
 Naming/PredicateName:
   Enabled: false
 
+Naming/MethodParameterName:
+  Enabled: false
 
 Style/CollectionMethods:
   PreferredMethods:
@@ -88,6 +93,9 @@ Style/ParallelAssignment:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/GlobalVars:
   Enabled: false
 
 Style/Alias:

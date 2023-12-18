@@ -111,6 +111,7 @@ def build_path(grid, outlet, start)
 end
 
 path = build_path(grid, outlet, start)
+puts "Path built #{Time.now}"
 
 res = (path.size / 2.0).ceil
 puts "Day 10.1: #{res}"
@@ -164,6 +165,7 @@ path_coords = path.map(&:first).to_set
 grounded_grid = grid.map.with_index { |row, y| row.map.with_index { |val, x| path_coords.include?([y, x]) ? val : "." } }
 
 exp_grid = grounded_grid.flat_map { |row| row.map { |val| EXPANSIONS.fetch(val) }.transpose.map(&:flatten) }
+puts "Grid expansion #{Time.now}"
 
 ground = exp_grid.map.with_index { |row, y|
   row.filter_map.with_index { |v, x|
@@ -211,6 +213,8 @@ until ground.empty?
   pools << visited
   ground -= visited
 end
+
+puts "Pools #{Time.now}"
 
 inside = []
 outside = []
@@ -273,8 +277,9 @@ pools.each do |pl|
     inside << pl
   end
 end
+puts "Pools inside / outside #{Time.now}"
 
-draw(exp_grid, outside:, inside:)
+# draw(exp_grid, outside:, inside:)
 
 counts = inside.map { |pl|
   grouped = pl.reduce({}) { |h, pos|
@@ -290,6 +295,7 @@ counts = inside.map { |pl|
 
   inside_count
 }
+puts "Counts #{Time.now}"
 
 res2 = counts.sum
 # bordering, pools = pools.partition { |pool|
@@ -426,4 +432,5 @@ res2 = counts.sum
 
 puts "Day 10.2: #{res2}"
 
-binding.irb
+# binding.irb
+# https://wrfranklin.org/Research/Short_Notes/pnpoly.html
