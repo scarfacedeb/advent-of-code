@@ -60,14 +60,14 @@ Style/CollectionMethods:
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     '%':  '{}'
-    '%i': '{}'
     '%q': '{}'
     '%Q': '{}'
     '%r': '{}'
     '%s': '{}'
-    '%w': '{}'
-    '%W': '{}'
     '%x': '{}'
+    '%i': '[]'
+    '%w': '[]'
+    '%W': '[]'
 
 Style/Documentation:
   Enabled: false
